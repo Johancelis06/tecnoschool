@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Administrador - Actualiza Usuario</title>
+    <title>Actualiza Usuario - Admin</title>
     <link rel="stylesheet" href="../../style/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </head>
   <body>
-  <?php include('../../views/admin/home.php')?>
+  <?php include('../../views/admin/navbar_admin.php')?>
   <div class="contAct">
   <form class="needs-validation" name="actAdmin" id="actAdmin" action="controllerAdminGuardaAct.php" method="get" novalidate>
     <table class="table">
@@ -29,10 +29,14 @@
               <select class="form-select" id="tipo" name="tipo" disabled>
                 <?php
                   foreach($tipos as $tipo){
+
+                    if($tipo["TIPO"]==$dato["TIPO"]){
+                ?> <option value="<?php echo $tipo["ID_TIPO"]; ?>" selected><?php echo $tipo["TIPO"]; ?></option> <?PHP
+                    }else{
                 ?>
                     <option value="<?php echo $tipo["ID_TIPO"]; ?>"><?php echo $tipo["TIPO"]; ?></option>
                 <?php
-                  }
+                  }}
                 ?>
               </select>
           </td>
@@ -44,15 +48,21 @@
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('documento')"></td>
         </tr>
         <tr>
+        <!--<?php echo $tipo["TIPO"]." ".$dato["TIPO"];?>-->
+        </tr>
+        <tr>
             <td><strong>Estado</strong></td>
             <td>
               <select class="form-select" id="estado" name="estado" disabled>
                 <?php
                   foreach($estados as $estado){
+                    if($estado["NOM_ESTADO"]==$dato["NOM_ESTADO"]){
                 ?>
+                    <option value="<?php echo $estado["ID_ESTADO"]; ?>" selected><?php echo $estado["NOM_ESTADO"]; ?></option><?php
+                    }else{ ?>
                     <option value="<?php echo $estado["ID_ESTADO"]; ?>"><?php echo $estado["NOM_ESTADO"]; ?></option>
                 <?php
-                  }
+                  }}
                 ?>
               </select>
           </td>
@@ -84,10 +94,13 @@
               <select class="form-select" id="perfil" name="perfil" disabled>
                 <?php
                   foreach ($perfiles as $perfil) {
+                    if($perfil["PERFIL"]==$dato["PERFIL"]){
                 ?>
+                <option value="<?php echo $perfil["ID_PERFIL"]; ?>" selected><?php echo $perfil["PERFIL"]; ?></option><?php
+                    }else {?>
                     <option value="<?php echo $perfil["ID_PERFIL"]; ?>"><?php echo $perfil["PERFIL"]; ?></option>
                 <?php
-                  }
+                  }}
                 ?>
               </select>
             </td>
