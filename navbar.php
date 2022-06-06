@@ -8,12 +8,11 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <h3 class="text-white">Tecnoschool</h3>
-    <a class="nav-link" href="controllerAdmin.php"><h3 class="text-white">Home</h3></a>
-    <h3 class="text-white">Bienvenido <?php echo $usuario ?></h3>
-    <a class="nav-link" href="../../cierra_sesion.php"><p class="text-white">Cerrar Sesión</p></a>
+    <h3 class="text-white">Bienvenido</h3>
+    <a class="nav-link" href="login.php"><p class="text-white">Iniciar Sesión</p></a>
   </div>
   <br><br>
-  <div class="collapse" id="navbarToggleExternalContent">
+  <!--<div class="collapse" id="navbarToggleExternalContent">
   <div class="bg-primary p-4">
     <h5 class="text-white h4">Administrar usuarios</h5>
     <ul class="navbar-nav">
@@ -23,7 +22,7 @@
     <li class="text-white"><a>Padre de Familia.</a></li>
     </ul>
   </div>
-</div>
+</div>-->
 </nav>
 </body>
 </html>
