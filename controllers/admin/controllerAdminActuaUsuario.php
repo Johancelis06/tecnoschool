@@ -11,7 +11,7 @@ if($_SESSION['profile']==1){
     $tipos = $adm->getTipoDocumento();
     $estados = $adm->getEstado();
     $perfiles = $adm->getPerfil();
-    require_once("../../views/admin/actUsuariosAdmin.php");
+    require_once("../../views/admin/navbar_admin.php");
 } else {
     echo "Usted no tiene permitido acceder a esta pagina";
 }

@@ -8,9 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </head>
   <body>
-  <?php include('../../views/admin/navbar_admin.php')?>
+  <?php require_once('../../controllers/admin/controllerAdminActuaUsuario.php')?>
   <div class="contAct">
-  <form class="needs-validation" name="actAdmin" id="actAdmin" action="controllerAdminGuardaAct.php" method="get" novalidate>
+  <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaAct.php" method="get" novalidate>
     <table class="table">
         <?php
           foreach ($datos as $dato) {}
@@ -122,7 +122,7 @@
     <td>
       <div class="input-group mb-3">
         <input type="submit" class="btn btn-success btn-sm" id="guardar" value="Guardar"> |
-        <a href="controllerAdminCreaUsuario.php" class="btn btn-primary btn-sm">Volver</a>
+        <a href="CreaUsuariosAdmin.php" class="btn btn-primary btn-sm">Volver</a>
       </div>
     </td>
     </tr>

@@ -8,9 +8,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </head>
   <body>
-  <?php include('../../views/admin/navbar_admin.php')?>
+  <?php require_once('../../controllers/admin/controllerAdminCreaUsuario.php')?>
   <br>
-    <a class="btn btn-success btn-sm" href="controllerAdminIngresaUsuarios.php">Crear Administrador</a>
+    <a class="btn btn-success btn-sm" href="ingresaUsuariosAdmin.php">Crear Administrador</a>
   <br>
     <table class="table">
         <tr>
@@ -41,8 +41,8 @@
                 <td><?php echo $dato["F_INSCRIPCION"]; ?> </td>
                 <td><?php echo $dato["F_RETIRO"]; ?> </td>
                 <td>
-                  <a class="btn btn-warning btn-sm" href="controllerAdminActuaUsuario.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Actualizar</a>
-                  <a class="btn btn-danger btn-sm" href="controllerAdminEliminaUsuario.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Eliminar</a>
+                  <a class="btn btn-warning btn-sm" href="actUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Actualizar</a>
+                  <a class="btn btn-danger btn-sm" href="eliminaUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Eliminar</a>
                 </td>
             </tr>
             <?php

@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </head>
   <body>
-  <?php include('../../views/admin/navbar_admin.php')?>
+  <?php require_once('../../controllers/admin/controllerAdminIngresaUsuarios.php')?>
   <div class="contAct">
   <form class="needs-validation" name="actAdmin" id="actAdmin" action="controllerAdminGuardaUsu.php" method="get" novalidate>
     <table class="table">
@@ -16,6 +16,7 @@
             <td><strong>Tipo Documento</strong></td>
             <td>
               <select class="form-select" id="tipo" name="tipo">
+                <option value="----">----</option>
                 <?php
                   foreach($tipos as $tipo){
                 ?>
@@ -39,7 +40,7 @@
         </tr>
         <tr>
             <td><strong>Usuario</strong></td>
-            <td><input type="text" class="form-control" value="" id="usuario" name="usuario"></td>
+            <td><input type="email" class="form-control" value="" id="usuario" name="usuario"></td>
         </tr>
         <tr>
             <td><strong>Fecha de Nacimiento</strong></td>
@@ -54,7 +55,7 @@
     <td>
       <div class="input-group mb-3">
         <input type="submit" class="btn btn-success btn-sm" id="guardar" value="Guardar"> |
-        <a href="controllerAdminCreaUsuario.php" class="btn btn-primary btn-sm">Volver</a>
+        <a href="CreaUsuariosAdmin.php" class="btn btn-primary btn-sm">Volver</a>
       </div>
     </td>
     </tr>

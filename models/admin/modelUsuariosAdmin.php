@@ -30,9 +30,9 @@ class admin {
         foreach ($this->db->query($sql) as $res) {
             $this->usuario[] = $res;
         }
+        $conexion= null;
         return $this->usuario;
 
-        $conexion->close();
 
     }
 
@@ -43,9 +43,9 @@ class admin {
         foreach ($this->db->query($sql) as $res) {
             $this->usuario[] = $res;
         }
+        $conexion= null;
         return $this->usuario;
 
-        $conexion->close();
     }
 
     public function getTipoDocumento(){
@@ -55,9 +55,10 @@ class admin {
         foreach ($this->db->query($sql) as $res) {
             $this->query[] = $res;
         }
+        $conexion= null;
         return $this->query;
 
-        $conexion->close();
+
     }
 
     public function getEstado(){
@@ -67,9 +68,9 @@ class admin {
         foreach ($this->db->query($sql) as $res) {
             $this->queryEst[] = $res;
         }
+        $conexion= null;
         return $this->queryEst;
 
-        $conexion->close();
     }
 
     public function getPerfil(){
@@ -79,12 +80,23 @@ class admin {
         foreach ($this->db->query($sql) as $res) {
             $this->queryPer[] = $res;
         }
+        $conexion= null;
         return $this->queryPer;
 
-        $conexion->close();
     }
 
     public function setUsuario($id,$idReg,$tipo,$document,$status,$name,$lastname,$usr,$dateB,$profile,$dateI,$dateR){
+
+        self::setNames();
+        $sql = "UPDATE 1_USUARIO SET TIPO_DOCUMENTO =$tipo,ID_DOCUMENTO=$document,ESTADO=$status,NOMBRE_USUARIO='$name',APELLIDO_USUARIO='$lastname',USUARIO='$usr',FECHA_NACIMIENTO='$dateB',ID_PERFIL=$profile WHERE COD_USUARIO = $id";
+        $this->db->query($sql);
+        $sql = "UPDATE 10_REGISTRO_USUARIO SET F_INSCRIPCION ='$dateI', F_RETIRO='$dateR', ID_ESTADO=$status WHERE COD_REGIS= $idReg";
+        $this->db->query($sql);
+
+    }
+
+
+    public function putUsuario($tipo,$document,$name,$lastname,$usr,$dateB,$dateI){
 
         self::setNames();
         $sql = "UPDATE 1_USUARIO SET TIPO_DOCUMENTO =$tipo,ID_DOCUMENTO=$document,ESTADO=$status,NOMBRE_USUARIO='$name',APELLIDO_USUARIO='$lastname',USUARIO='$usr',FECHA_NACIMIENTO='$dateB',ID_PERFIL=$profile WHERE COD_USUARIO = $id";
