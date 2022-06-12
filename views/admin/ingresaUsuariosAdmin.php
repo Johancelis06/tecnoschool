@@ -10,7 +10,7 @@
   <body>
   <?php require_once('../../controllers/admin/controllerAdminIngresaUsuarios.php')?>
   <div class="contAct">
-  <form class="needs-validation" name="actAdmin" id="actAdmin" action="controllerAdminGuardaUsu.php" method="get" novalidate>
+  <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaUsu.php" method="get" novalidate>
     <table class="table">
         <tr>
             <td><strong>Tipo Documento</strong></td>

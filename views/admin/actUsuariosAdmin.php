@@ -24,6 +24,10 @@
             <td><input type="text" class="form-control" value="<?php echo $registro; ?>" id="idReg" name="idReg" disabled></td>
         </tr>
         <tr>
+            <td><strong>Mes de Actualización</strong></td>
+            <td><input type="text" class="form-control" value="<?php echo $data; ?>" id="mesdata" name="mesdata" disabled></td>
+        </tr>
+        <tr>
             <td><strong>Tipo Documento</strong></td>
             <td>
               <select class="form-select" id="tipo" name="tipo" disabled>

@@ -60,4 +60,8 @@ document.getElementById("guardar").addEventListener('click',function habilitar()
     if(dater.disabled === true){
         dater.disabled = false
     }
+    var mes = document.getElementById('mesdata');
+    if(mes.disabled === true){
+        mes.disabled = false
+    }
 })

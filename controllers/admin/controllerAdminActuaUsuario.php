@@ -4,6 +4,7 @@ require_once("../../sesion.php");
 $usuario = $_SESSION['usuario'];
 $id = $_GET['id'];
 $registro = $_GET['cod'];
+$data = $_GET['mes'];
 if($_SESSION['profile']==1){
     require_once("../../models/admin/modelUsuariosAdmin.php");
     $adm = new admin();

@@ -41,8 +41,8 @@
                 <td><?php echo $dato["F_INSCRIPCION"]; ?> </td>
                 <td><?php echo $dato["F_RETIRO"]; ?> </td>
                 <td>
-                  <a class="btn btn-warning btn-sm" href="actUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Actualizar</a>
-                  <a class="btn btn-danger btn-sm" href="eliminaUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"];?>">Eliminar</a>
+                  <a class="btn btn-warning btn-sm" href="actUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"].'&mes='. $dato["MESDATA"];?>">Actualizar</a>
+                  <a class="btn btn-danger btn-sm" href="eliminaUsuariosAdmin.php?id=<?php echo $dato["COD_USUARIO"].'&cod='. $dato["COD_REGIS"].'&mes='. $dato["MESDATA"];?>">Eliminar</a>
                 </td>
             </tr>
             <?php

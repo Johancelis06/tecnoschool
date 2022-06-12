@@ -9,6 +9,7 @@ class admin {
     private $query;
     private $queryEst;
     private $queryPer;
+    private $date;
 
     public function __construct() {
 
@@ -16,6 +17,7 @@ class admin {
         $this->query = array();
         $this->queryEst = array();
         $this->queryPer = array();
+        $this->date = date("y-m");
         $this->db=Conectar::conexion();
     }
 
@@ -85,12 +87,12 @@ class admin {
 
     }
 
-    public function setUsuario($id,$idReg,$tipo,$document,$status,$name,$lastname,$usr,$dateB,$profile,$dateI,$dateR){
+    public function setUsuario($id,$idReg,$tipo,$document,$status,$name,$lastname,$usr,$dateB,$profile,$dateI,$dateR,$mesdata){
 
         self::setNames();
         $sql = "UPDATE 1_USUARIO SET TIPO_DOCUMENTO =$tipo,ID_DOCUMENTO=$document,ESTADO=$status,NOMBRE_USUARIO='$name',APELLIDO_USUARIO='$lastname',USUARIO='$usr',FECHA_NACIMIENTO='$dateB',ID_PERFIL=$profile WHERE COD_USUARIO = $id";
         $this->db->query($sql);
-        $sql = "UPDATE 10_REGISTRO_USUARIO SET F_INSCRIPCION ='$dateI', F_RETIRO='$dateR', ID_ESTADO=$status WHERE COD_REGIS= $idReg";
+        $sql = "UPDATE 10_REGISTRO_USUARIO SET F_INSCRIPCION ='$dateI', F_RETIRO='$dateR', ID_ESTADO=$status WHERE COD_REGIS= $idReg and MESDATA='$mesdata'";
         $this->db->query($sql);
 
     }
@@ -99,9 +101,11 @@ class admin {
     public function putUsuario($tipo,$document,$name,$lastname,$usr,$dateB,$dateI){
 
         self::setNames();
-        $sql = "UPDATE 1_USUARIO SET TIPO_DOCUMENTO =$tipo,ID_DOCUMENTO=$document,ESTADO=$status,NOMBRE_USUARIO='$name',APELLIDO_USUARIO='$lastname',USUARIO='$usr',FECHA_NACIMIENTO='$dateB',ID_PERFIL=$profile WHERE COD_USUARIO = $id";
+        $sql = "INSERT INTO 1_USUARIO (TIPO_DOCUMENTO,ID_DOCUMENTO,ESTADO,NOMBRE_USUARIO,APELLIDO_USUARIO,USUARIO,FECHA_NACIMIENTO,ID_PERFIL) VALUE ($tipo,$document,9,'$name','$lastname','$usr','$dateB',1)";
         $this->db->query($sql);
-        $sql = "UPDATE 10_REGISTRO_USUARIO SET F_INSCRIPCION ='$dateI', F_RETIRO='$dateR', ID_ESTADO=$status WHERE COD_REGIS= $idReg";
+        $sql = "INSERT INTO 10_REGISTRO_USUARIO (COD_REGIS,F_INSCRIPCION,COD_USUARIO,ID_ESTADO,MESDATA) SELECT MAX(RU.COD_REGIS)+1,'2022-06-11',MAX(U.COD_USUARIO),9,'$date' FROM 1_USUARIO U,10_REGISTRO_USUARIO RU WHERE U.COD_USUARIO NOT IN(SELECT RU.COD_USUARIO FROM 10_REGISTRO_USUARIO)";
+        $this->db->query($sql);
+        $sql = "INSERT INTO 2_ADMINISTRADOR SELECT COD_USUARIO FROM 1_USUARIO WHERE COD_USUARIO NOT IN ( SELECT A.COD_USUARIO FROM 2_ADMINISTRADOR A)";
         $this->db->query($sql);
 
     }
