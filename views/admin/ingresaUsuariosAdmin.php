@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="../../style/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
   <?php require_once('../../controllers/admin/controllerAdminIngresaUsuarios.php')?>
   <div class="contAct">
-  <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaUsu.php" method="get" novalidate>
+  <form class="needs-validation" name="creaAdmin" id="creaAdmin" action="../../controllers/admin/controllerAdminGuardaUsu.php" method="get" novalidate>
     <table class="table">
         <tr>
             <td><strong>Tipo Documento</strong></td>
@@ -63,5 +65,40 @@
   </div>
   <script src="../../js/validationLogin.js"></script>
   <script src="../../js/admin.js"></script>
+  <script>
+
+
+    function esperar(){
+        creaAdmin.guardar.disabled = true;
+        creaAdmin.guardar.value = "Guardando...";
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('click', Swal.stopTimer)
+              toast.addEventListener('click', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Usuario Creado.'
+          })
+        setTimeout(() => {
+            creaAdmin.guardar.disabled = false;
+            creaAdmin.guardar.value = "Guardar";
+            creaAdmin.submit();
+          }, 1800);
+          return false;
+    };
+
+    creaAdmin.guardar.addEventListener("click", function(){
+    return esperar();
+    }, false);
+
+  </script>
 </body>
 </html>

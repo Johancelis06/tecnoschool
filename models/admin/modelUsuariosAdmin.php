@@ -17,7 +17,7 @@ class admin {
         $this->query = array();
         $this->queryEst = array();
         $this->queryPer = array();
-        $this->date = date("y-m");
+        $this->date = date("Y-m");
         $this->db=Conectar::conexion();
     }
 
@@ -95,6 +95,8 @@ class admin {
         $sql = "UPDATE 10_REGISTRO_USUARIO SET F_INSCRIPCION ='$dateI', F_RETIRO='$dateR', ID_ESTADO=$status WHERE COD_REGIS= $idReg and MESDATA='$mesdata'";
         $this->db->query($sql);
 
+        $conexion = null;
+
     }
 
 
@@ -103,12 +105,24 @@ class admin {
         self::setNames();
         $sql = "INSERT INTO 1_USUARIO (TIPO_DOCUMENTO,ID_DOCUMENTO,ESTADO,NOMBRE_USUARIO,APELLIDO_USUARIO,USUARIO,FECHA_NACIMIENTO,ID_PERFIL) VALUE ($tipo,$document,9,'$name','$lastname','$usr','$dateB',1)";
         $this->db->query($sql);
-        $sql = "INSERT INTO 10_REGISTRO_USUARIO (COD_REGIS,F_INSCRIPCION,COD_USUARIO,ID_ESTADO,MESDATA) SELECT MAX(RU.COD_REGIS)+1,'2022-06-11',MAX(U.COD_USUARIO),9,'$date' FROM 1_USUARIO U,10_REGISTRO_USUARIO RU WHERE U.COD_USUARIO NOT IN(SELECT RU.COD_USUARIO FROM 10_REGISTRO_USUARIO)";
+        $sql = "INSERT INTO 10_REGISTRO_USUARIO (COD_REGIS,F_INSCRIPCION,COD_USUARIO,ID_ESTADO,MESDATA) SELECT MAX(RU.COD_REGIS)+1,'2022-06-11',MAX(U.COD_USUARIO),9,'$this->date' FROM 1_USUARIO U,10_REGISTRO_USUARIO RU WHERE U.COD_USUARIO NOT IN(SELECT RU.COD_USUARIO FROM 10_REGISTRO_USUARIO)";
         $this->db->query($sql);
         $sql = "INSERT INTO 2_ADMINISTRADOR SELECT COD_USUARIO FROM 1_USUARIO WHERE COD_USUARIO NOT IN ( SELECT A.COD_USUARIO FROM 2_ADMINISTRADOR A)";
         $this->db->query($sql);
 
+        $conexion = null;
+
     }
+
+    public function putUsuarioRepetido($dateI,$docu){
+
+        self::setNames();
+        $sql = "INSERT INTO 10_REGISTRO_USUARIO (COD_REGIS,F_INSCRIPCION,COD_USUARIO,ID_ESTADO,MESDATA) SELECT MAX(RU.COD_REGIS)+1,'$dateI',U.COD_USUARIO,9,'$this->date' FROM 1_USUARIO U,10_REGISTRO_USUARIO RU WHERE U.ID_DOCUMENTO = $docu";
+        $this->db->query($sql);
+
+        $conexion = null;
+    }
+
 
 
 }

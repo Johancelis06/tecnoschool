@@ -1,3 +1,3 @@
 <?php
-    echo date("y-m");
+    echo date("Y-m");
 ?>

@@ -14,6 +14,7 @@
   <br>
     <table class="table">
         <tr>
+            <td><strong>N° Usuario</strong></td>
             <td><strong>Tipo Documento</strong></td>
             <td><strong>Documento</strong></td>
             <td><strong>Estado</strong></td>
@@ -30,6 +31,7 @@
         foreach ($datos as $dato) {
             ?>
             <tr>
+                <td><?php echo $dato["COD_USUARIO"]; ?></td>
                 <td><?php echo $dato["TIPO"]; ?></td>
                 <td><?php echo $dato["ID_DOCUMENTO"]; ?></td>
                 <td><?php echo $dato["NOM_ESTADO"]; ?></td>

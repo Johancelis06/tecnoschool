@@ -6,11 +6,13 @@
     <link rel="stylesheet" href="../../style/style.css" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
   <?php require_once('../../controllers/admin/controllerAdminActuaUsuario.php')?>
   <div class="contAct">
-  <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaAct.php" method="get" novalidate>
+  <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaAct.php" method="get"  novalidate>
     <table class="table">
         <?php
           foreach ($datos as $dato) {}
@@ -84,7 +86,7 @@
         </tr>
         <tr>
             <td><strong>Usuario</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["USUARIO"]; ?>" id="usuario" name="usuario" disabled></td>
+            <td><input type="email" class="form-control" value="<?php echo $dato["USUARIO"]; ?>" id="usuario" name="usuario" disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('usuario')"></td>
         </tr>
         <tr>
@@ -125,7 +127,7 @@
     <tr>
     <td>
       <div class="input-group mb-3">
-        <input type="submit" class="btn btn-success btn-sm" id="guardar" value="Guardar"> |
+        <input type="submit" class="btn btn-success btn-sm" name="guardar" id="guardar" value="Guardar"> |
         <a href="CreaUsuariosAdmin.php" class="btn btn-primary btn-sm">Volver</a>
       </div>
     </td>
@@ -134,5 +136,40 @@
   </div>
   <script src="../../js/validationLogin.js"></script>
   <script src="../../js/admin.js"></script>
+  <script>
+
+
+ function esperar(){
+        actAdmin.guardar.disabled = true;
+        actAdmin.guardar.value = "Actualizando...";
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('click', Swal.stopTimer)
+              toast.addEventListener('click', Swal.resumeTimer)
+            }
+          })
+
+          Toast.fire({
+            icon: 'success',
+            title: 'Registro Actualizado.'
+          })
+        setTimeout(() => {
+            actAdmin.guardar.disabled = false;
+            actAdmin.guardar.value = "Guardar";
+            actAdmin.submit();
+          }, 1800);
+          return false;
+    };
+
+    actAdmin.guardar.addEventListener("click", function(){
+    return esperar();
+    }, false);
+
+  </script>
 </body>
 </html>

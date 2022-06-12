@@ -12,6 +12,7 @@ function mostrar(id){
  }
 
 document.getElementById("guardar").addEventListener('click',function habilitar(){
+
     var codUser = document.getElementById('idUser');
     if(codUser.disabled === true){
         codUser.disabled = false
@@ -64,4 +65,6 @@ document.getElementById("guardar").addEventListener('click',function habilitar()
     if(mes.disabled === true){
         mes.disabled = false
     }
+
 })
+
