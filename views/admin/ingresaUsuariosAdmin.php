@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Crea Usuario - Admin</title>
-    <link rel="stylesheet" href="../../style/style.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
+
   <body>
   <?php require_once('../../controllers/admin/controllerAdminIngresaUsuarios.php')?>
   <div class="contAct">
@@ -17,7 +7,7 @@
         <tr>
             <td><strong>Tipo Documento</strong></td>
             <td>
-              <select class="form-select" id="tipo" name="tipo">
+              <select class="form-select" id="tipo" name="tipo" required>
                 <option value="----">----</option>
                 <?php
                   foreach($tipos as $tipo){
@@ -31,26 +21,26 @@
         </tr>
         <tr>
             <td><strong>Documento</strong></td>
-            <td><input type="text" class="form-control" value="" id="documento" name="documento"></td>
+            <td><input type="text" class="form-control" value="" id="documento" name="documento" required></td>
         </tr>
             <td><strong>Nombre</strong></td>
-            <td><input type="text" class="form-control" value="" id="nombre" name="nombre"></td>
+            <td><input type="text" class="form-control" value="" id="nombre" name="nombre" required></td>
         </tr>
         <tr>
             <td><strong>Apellido</strong></td>
-            <td><input type="text" class="form-control" value="" id="apellido" name="apellido"></td>
+            <td><input type="text" class="form-control" value="" id="apellido" name="apellido" required></td>
         </tr>
         <tr>
             <td><strong>Usuario</strong></td>
-            <td><input type="email" class="form-control" value="" id="usuario" name="usuario"></td>
+            <td><input type="email" class="form-control" value="" id="usuario" name="usuario" required></td>
         </tr>
         <tr>
             <td><strong>Fecha de Nacimiento</strong></td>
-            <td><input type="text" class="form-control" value="" id="fnacimiento" name="fnacimiento"></td>
+            <td><input type="text" class="form-control" value="" id="fnacimiento" name="fnacimiento" required></td>
         </tr>
         <tr>
             <td><strong>Fecha de Ingreso</strong></td>
-            <td><input type="text" class="form-control" value="" id="fingreso" name="fingreso"></td>
+            <td><input type="text" class="form-control" value="" id="fingreso" name="fingreso" required></td>
         </tr>
     </table>
     <tr>
@@ -68,36 +58,53 @@
   <script>
 
 
-    function esperar(){
-        creaAdmin.guardar.disabled = true;
-        creaAdmin.guardar.value = "Guardando...";
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('click', Swal.stopTimer)
-              toast.addEventListener('click', Swal.resumeTimer)
-            }
-          })
+(function () {
+  'use strict'
 
-          Toast.fire({
-            icon: 'success',
-            title: 'Usuario Creado.'
-          })
-        setTimeout(() => {
-            creaAdmin.guardar.disabled = false;
-            creaAdmin.guardar.value = "Guardar";
-            creaAdmin.submit();
-          }, 1800);
-          return false;
-    };
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
 
-    creaAdmin.guardar.addEventListener("click", function(){
-    return esperar();
-    }, false);
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }else{
+                event.preventDefault()
+                event.stopPropagation()
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('submit', Swal.stopTimer)
+                      toast.addEventListener('submit', Swal.resumeTimer)
+                    }
+                  })
+                setTimeout(()=>{
+                    document.getElementById('guardar').disabled = true;
+                    document.getElementById('guardar').value = "Guardando...";
+                    Toast.fire({
+                    icon: 'success',
+                    title: 'Registro Guardado.'
+                  })
+
+                }, 0)
+                setTimeout(()=>{
+                  document.getElementById('guardar').disabled = false;
+                  document.getElementById('guardar').value = "Guardar";
+                  document.getElementById('creaAdmin').submit()
+                },1900)
+        };
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
 
   </script>
 </body>

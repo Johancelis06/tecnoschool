@@ -8,7 +8,7 @@ $data = $_GET['mes'];
 if($_SESSION['profile']==1){
     require_once("../../models/admin/modelUsuariosAdmin.php");
     $adm = new admin();
-    $datos = $adm->getUsersActualiza($id);
+    $datos = $adm->getUsersActualiza($id,$data,$registro);
     $tipos = $adm->getTipoDocumento();
     $estados = $adm->getEstado();
     $perfiles = $adm->getPerfil();

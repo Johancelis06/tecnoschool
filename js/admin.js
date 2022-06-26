@@ -68,3 +68,12 @@ document.getElementById("guardar").addEventListener('click',function habilitar()
 
 })
 
+function change(){
+    var status = document.getElementById('estado');
+    var dater=document.getElementById('fretiro');
+    if(status.value==6){
+        dater.required = true;
+    }
+}
+
+

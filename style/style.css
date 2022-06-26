@@ -43,3 +43,15 @@ h3 {
   margin-left: auto;
   margin-right: auto;
 }
+
+.contenedor{
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.conttable{
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+}

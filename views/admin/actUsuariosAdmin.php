@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Actualiza Usuario - Admin</title>
-    <link rel="stylesheet" href="../../style/style.css" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  </head>
   <body>
   <?php require_once('../../controllers/admin/controllerAdminActuaUsuario.php')?>
   <div class="contAct">
   <form class="needs-validation" name="actAdmin" id="actAdmin" action="../../controllers/admin/controllerAdminGuardaAct.php" method="get"  novalidate>
-    <table class="table">
+    <table class="table" id="usuarios">
         <?php
           foreach ($datos as $dato) {}
         ?>
@@ -32,7 +21,7 @@
         <tr>
             <td><strong>Tipo Documento</strong></td>
             <td>
-              <select class="form-select" id="tipo" name="tipo" disabled>
+              <select class="form-select" id="tipo" name="tipo" required disabled>
                 <?php
                   foreach($tipos as $tipo){
 
@@ -50,7 +39,7 @@
         </tr>
         <tr>
             <td><strong>Documento</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["ID_DOCUMENTO"]; ?>" id="documento" name="documento" disabled></td>
+            <td><input type="text" class="form-control" value="<?php echo $dato["ID_DOCUMENTO"]; ?>" id="documento" name="documento" required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('documento')"></td>
         </tr>
         <tr>
@@ -59,7 +48,7 @@
         <tr>
             <td><strong>Estado</strong></td>
             <td>
-              <select class="form-select" id="estado" name="estado" disabled>
+              <select class="form-select" id="estado" name="estado" onchange="change()" required disabled>
                 <?php
                   foreach($estados as $estado){
                     if($estado["NOM_ESTADO"]==$dato["NOM_ESTADO"]){
@@ -76,28 +65,28 @@
         </tr>
         <tr>
             <td><strong>Nombre</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["NOMBRE_USUARIO"]; ?>" id="nombre" name="nombre" disabled></td>
+            <td><input type="text" class="form-control" value="<?php echo $dato["NOMBRE_USUARIO"]; ?>" id="nombre" name="nombre" required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('nombre')"></td>
         </tr>
         <tr>
             <td><strong>Apellido</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["APELLIDO_USUARIO"]; ?>" id="apellido" name="apellido" disabled></td>
+            <td><input type="text" class="form-control" value="<?php echo $dato["APELLIDO_USUARIO"]; ?>" id="apellido" name="apellido" required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('apellido')"></td>
         </tr>
         <tr>
             <td><strong>Usuario</strong></td>
-            <td><input type="email" class="form-control" value="<?php echo $dato["USUARIO"]; ?>" id="usuario" name="usuario" disabled></td>
+            <td><input type="email" class="form-control" value="<?php echo $dato["USUARIO"]; ?>" id="usuario" name="usuario"required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('usuario')"></td>
         </tr>
         <tr>
             <td><strong>Fecha de Nacimiento</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["FECHA_NACIMIENTO"]; ?>" id="fnacimiento" name="fnacimiento" disabled></td>
+            <td><input type="text" class="form-control" value="<?php echo $dato["FECHA_NACIMIENTO"]; ?>" id="fnacimiento" name="fnacimiento" required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('fnacimiento')"></td>
         </tr>
         <tr>
             <td><strong>Perfil</strong></td>
             <td>
-              <select class="form-select" id="perfil" name="perfil" disabled>
+              <select class="form-select" id="perfil" name="perfil" required disabled>
                 <?php
                   foreach ($perfiles as $perfil) {
                     if($perfil["PERFIL"]==$dato["PERFIL"]){
@@ -114,7 +103,7 @@
         </tr>
         <tr>
             <td><strong>Fecha de Ingreso</strong></td>
-            <td><input type="text" class="form-control" value="<?php echo $dato["F_INSCRIPCION"]; ?>" id="fingreso" name="fingreso" disabled></td>
+            <td><input type="text" class="form-control" value="<?php echo $dato["F_INSCRIPCION"]; ?>" id="fingreso" name="fingreso" required disabled></td>
             <td><input class="btn btn-outline-dark btn-sm" type="button" value="editar" onclick="mostrar('fingreso')"></td>
         </tr>
         <tr>
@@ -134,42 +123,57 @@
     </tr>
   </form>
   </div>
-  <script src="../../js/validationLogin.js"></script>
-  <script src="../../js/admin.js"></script>
+
   <script>
 
+(function () {
+  'use strict'
 
- function esperar(){
-        actAdmin.guardar.disabled = true;
-        actAdmin.guardar.value = "Actualizando...";
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('click', Swal.stopTimer)
-              toast.addEventListener('click', Swal.resumeTimer)
-            }
-          })
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
 
-          Toast.fire({
-            icon: 'success',
-            title: 'Registro Actualizado.'
-          })
-        setTimeout(() => {
-            actAdmin.guardar.disabled = false;
-            actAdmin.guardar.value = "Guardar";
-            actAdmin.submit();
-          }, 1800);
-          return false;
-    };
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }else{
+                event.preventDefault()
+                event.stopPropagation()
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 1500,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      toast.addEventListener('submit', Swal.stopTimer)
+                      toast.addEventListener('submit', Swal.resumeTimer)
+                    }
+                  })
+                setTimeout(()=>{
+                    document.getElementById('guardar').disabled = true;
+                    document.getElementById('guardar').value = "Actualizando...";
+                    Toast.fire({
+                    icon: 'success',
+                    title: 'Registro Actualizado.'
+                  })
 
-    actAdmin.guardar.addEventListener("click", function(){
-    return esperar();
-    }, false);
+                }, 0)
+                setTimeout(()=>{
+                  document.getElementById('guardar').disabled = false;
+                  document.getElementById('guardar').value = "Guardar";
+                  document.getElementById('actAdmin').submit()
+                },1900)
+        };
 
-  </script>
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+
 </body>
 </html>

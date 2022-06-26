@@ -20,11 +20,15 @@ class login {
     public function getRoute($usu,$pass){
 
         self::setNames();
-        $sql = "SELECT COD_USUARIO,USUARIO,CONTRASENA,ID_PERFIL,NOMBRE_USUARIO,APELLIDO_USUARIO,ESTADO FROM 1_USUARIO WHERE USUARIO = '$usu' AND CONTRASENA=SHA('$pass')";
-        foreach ($this->db->query($sql) as $res) {
+        $sql =$this->db->prepare("SELECT COD_USUARIO,USUARIO,CONTRASENA,ID_PERFIL,NOMBRE_USUARIO,APELLIDO_USUARIO,ESTADO FROM 1_USUARIO WHERE USUARIO = :usu AND CONTRASENA=SHA(:pass)");
+        $sql->bindParam(':usu',$usu);
+        $sql->bindParam(':pass',$pass);
+        $sql->execute();
+
+        foreach ($sql as $res) {
             $this->usuario[] = $res;
         }
-        $conexion= null;
+        $db= null;
         return $this->usuario;
     }
 }
