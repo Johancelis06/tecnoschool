@@ -10,6 +10,7 @@ class admin {
     private $queryEst;
     private $queryPer;
     private $date;
+    private $course;
 
     public function __construct() {
 
@@ -17,6 +18,7 @@ class admin {
         $this->query = array();
         $this->queryEst = array();
         $this->queryPer = array();
+        $this->course = array();
         $this->date = date("Y-m");
         $this->db=Conectar::conexion();
     }
@@ -24,6 +26,8 @@ class admin {
     private function setNames() {
         return $this->db->query("SET NAMES 'utf8'");
     }
+
+    /*--------MODELOS USUARIOS ADMIN--------*/
 
     public function getUsers(){
 
@@ -153,6 +157,71 @@ class admin {
         $conexion = null;
     }
 
+
+    /*--------MODELOS CURSOS--------*/
+
+
+    public function getCourse(){
+
+        self::setNames();
+
+        $sql = $this->db->prepare("SELECT * FROM 7_CURSO");
+        $sql->execute();
+        while($row = $sql->fetch()) {
+            $this->course[] = $row;
+        }
+        $db= null;
+        return $this->course;
+
+
+    }
+
+    public function putCourse($name,$cantidad){
+
+        self::setNames();
+        $sql = $this->db->prepare("INSERT INTO 7_CURSO (NOMBRE_CURSO,NRO_ESTUDIANTES) VALUE (?,?)");
+        $sql->bindParam(1,$name);
+        $sql->bindParam(2,$cantidad);
+        $sql->execute();
+        $db = null;
+
+    }
+
+    public function getCoursesActualiza($id){
+
+        self::setNames();
+        $sql = $this->db->prepare("SELECT * FROM 7_CURSO WHERE COD_CURSO = :id");
+        $sql->bindParam(':id',$id);
+        $sql->execute();
+        foreach ($sql as $res) {
+            $this->course[] = $res;
+        }
+        $db= null;
+        return $this->course;
+
+    }
+
+    public function setCourse($id,$name,$cant){
+
+        self::setNames();
+        $sql = $this->db->prepare("UPDATE 7_CURSO SET NOMBRE_CURSO =:name,NRO_ESTUDIANTES=:cant WHERE COD_CURSO = :id");
+        $sql->bindParam(':name',$name);
+        $sql->bindParam(':cant',$cant);
+        $sql->bindParam(':id',$id);
+        $sql->execute();
+        $db = null;
+
+    }
+
+    public function deleteCourses($id){
+
+        self::setNames();
+        $sql = $this->db->prepare("DELETE FROM 7_CURSO WHERE COD_CURSO = :id");
+        $sql->bindParam(':id',$id);
+        $sql->execute();
+        $db= null;
+
+    }
 
 
 }

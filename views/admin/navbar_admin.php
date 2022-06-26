@@ -8,8 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="../../js/validationLogin.js"></script>
-  <script src="../../js/admin.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
@@ -44,7 +42,7 @@
         <br>
         <h6 class="nav-item text-white h6">Administrar Cursos</h6>
         <ul class="navbar-nav">
-          <li class="nav-item text-white"><a class="nav-link" href="#">Cursos.</a></li>
+          <li class="nav-item text-white"><a class="nav-link" href="CreaCursosAdmin.php">Cursos.</a></li>
         </ul>
         <br>
         <h6 class="nav-item text-white h6">Administrar Asignaturas</h6>

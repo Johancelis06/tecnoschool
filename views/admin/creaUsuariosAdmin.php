@@ -2,9 +2,10 @@
   <body>
   <?php require_once('../../controllers/admin/controllerAdminCreaUsuario.php')?>
   <br>
-    <a class="btn btn-success btn-sm" href="ingresaUsuariosAdmin.php">Crear Administrador</a>
+
   <br>
     <div class="contenedor">
+    <a class="btn btn-success btn-sm" href="ingresaUsuariosAdmin.php">Crear Administrador</a>
     <div class="conttable">
       <table class="table table-hover table-sm cell-corder comapct nowrap" id="usuarios">
         <thead>

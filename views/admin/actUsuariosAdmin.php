@@ -123,7 +123,7 @@
     </tr>
   </form>
   </div>
-
+  <script src="../../js/admin.js"></script>
   <script>
 
 (function () {
@@ -165,7 +165,7 @@
                 setTimeout(()=>{
                   document.getElementById('guardar').disabled = false;
                   document.getElementById('guardar').value = "Guardar";
-                  document.getElementById('actAdmin').submit()
+                  document.getElementById('actAdmin').submit();
                 },1900)
         };
 
